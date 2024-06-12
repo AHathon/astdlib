@@ -15,19 +15,16 @@ void aprintf(const char *fmt, ...){
 }
 
 char *hexDump(char *str, size_t strSize){
-  static char buf[128];
+  char buf[128];
   char *hex = "0123456789ABCDEF";
   u8 i = 0, j = 0;
   while(strSize--){
     u8 num1 = str[i] & 0xF;
-    u8 num2 = (str[i] >> 4) & 0xF;
+    u8 num2 = (str[i++] >> 4) & 0xF;
     
-    buf[j] = hex[num2];
-    buf[j+1] = hex[num1];
-    i++;
-    j+=2;
-    buf[j] = ' ';
-    j++;
+    buf[j++] = hex[num2];
+    buf[j++] = hex[num1];
+    buf[j++] = ' ';
   }
   return buf;
 }
